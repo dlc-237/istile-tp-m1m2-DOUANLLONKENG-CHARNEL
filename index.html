@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Annuaire ISTILE</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="affichage.js" defer></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>ISTILE Annuaire</h1>
+
+      <nav>
+        <ul>
+          <li><a href="#recherche">Recherche</a></li>
+          <li><a href="#etudiants">Étudiants</a></li>
+          <li><a href="#contacts">Contacts</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section id="recherche" class="search-section">
+        <h2>Recherche d'un étudiant</h2>
+
+        <form id="formulaire-recherche">
+          <label for="champ-recherche"> Nom ou prénom : </label>
+
+          <input
+            type="search"
+            id="champ-recherche"
+            placeholder="Entrez un nom ou un prénom"
+          />
+
+          <button type="submit">Rechercher</button>
+        </form>
+      </section>
+
+      <section id="etudiants">
+        <h2>Liste des étudiants</h2>
+
+        <p id="message">Chargement des étudiants...</p>
+
+        <div id="liste-etudiants">
+          <!-- Les cartes seront générées par JavaScript -->
+        </div>
+      </section>
+
+      <section id="contacts">
+        <h2>Contacts</h2>
+
+        <p>
+          Pour toute information complémentaire, contactez l'administration :
+        </p>
+
+        <a href="mailto:administration@istile.fr"> administration@istile.fr </a>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2024 ISTILE. Tous droits réservés.</p>
+    </footer>
+  </body>
+</html>
