@@ -1,47 +1,48 @@
-export function moyenneGenerale(listeNotes) {
-    const somme = listeNotes.reduce((acc, note) => acc + note, 0);
-    return Number(somme / listeNotes.length).toFixed(2);
+export function moyenneGenerale(liste) {
+  const somme = liste.reduce((cumul, etudiant) => cumul + etudiant.note, 0);
+  return Number((somme / liste.length).toFixed(2));
 }
 
-export function admis(liste){
-    return liste.filter((etudiant) => etudiant.moyenne >= 10);
+export function admis(liste) {
+  return liste.filter((etudiant) => etudiant.note >= 10);
 }
 
-export function nomsFormates(liste){
-    return liste.map((etudiant) => {
-        const nomFormate = etudiant.nom.charAt(0).toUpperCase() + etudiant.nom.slice(1).toLowerCase();
-        const prenomFormate = etudiant.prenom.charAt(0).toUpperCase() + etudiant.prenom.slice(1).toLowerCase();
-        return `${nomFormate} ${prenomFormate}`;
-    });
-}
-export function effectifParFiliere(liste){
-    return liste.reduce((acc, etudiant) => {
-        if (acc[etudiant.filiere]) {
-            acc[etudiant.filiere]++;
-        } else {
-            acc[etudiant.filiere] = 1;
-        }
-        return acc;
-    }, {});
+export function nomsFormates(liste) {
+  return liste.map(({ prenom, nom }) => `${nom.toUpperCase()} ${prenom}`);
 }
 
-export function moyenneParFiliere(liste){
-    const filieres = {};
-    liste.forEach((etudiant) => {
-        if (!filieres[etudiant.filiere]) {
-            filieres[etudiant.filiere] = { somme: 0, count: 0 };
-        }
-        filieres[etudiant.filiere].somme += etudiant.moyenne;
-        filieres[etudiant.filiere].count++;
-    });
-    for (const filiere in filieres) {
-        filieres[filiere] = Number(filieres[filiere].somme / filieres[filiere].count).toFixed(2);
-    }
-    return filieres;
+export function effectifParFiliere(liste) {
+  return liste.reduce(
+    (resultat, { filiere }) => ({
+      ...resultat,
+      [filiere]: (resultat[filiere] ?? 0) + 1,
+    }),
+    {}
+  );
 }
 
-export function classementParNote(liste){
-    return liste.sort((a, b) => b.moyenne - a.moyenne);
+export function moyenneParFiliere(liste) {
+  const groupes = liste.reduce(
+    (resultat, { filiere, note }) => ({
+      ...resultat,
+      [filiere]: {
+        somme: (resultat[filiere]?.somme ?? 0) + note,
+        nombre: (resultat[filiere]?.nombre ?? 0) + 1,
+      },
+    }),
+    {}
+  );
+
+  return Object.fromEntries(
+    Object.entries(groupes).map(([filiere, { somme, nombre }]) => [
+      filiere,
+      Number((somme / nombre).toFixed(2)),
+    ])
+  );
+}
+
+export function classementParNote(liste) {
+  return [...liste].sort((a, b) => b.note - a.note);
 }
 
 export function majNote(liste, id, note) {
