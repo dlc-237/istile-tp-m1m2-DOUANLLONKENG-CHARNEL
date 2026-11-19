@@ -1,3 +1,5 @@
+console.log("affichage.js est charge");
+
 const NOMBRE_PAR_DEFAUT = 6;
 
 const conteneur = document.getElementById("liste-etudiants");
@@ -52,7 +54,7 @@ function rechercher() {
 
 async function charger() {
   try {
-    const reponse = await fetch("./etudiants.json");
+    const reponse = await fetch("./data/etudiants.json");
 
     if (!reponse.ok) {
       message.textContent =
